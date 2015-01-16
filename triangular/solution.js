@@ -5,7 +5,6 @@ function triangular( n ) {
 		return 0;
 	} else {
 		for (i = n; i > 0; i--) {
-			console.log(i);
 			sum += i
 		}
 	}
