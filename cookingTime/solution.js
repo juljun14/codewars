@@ -1,5 +1,18 @@
 function cookingTime(eggs) {
-
+	switch(eggs) {
+    case eggs === 0:
+        return 0;
+        break;
+    case eggs > 0 && eggs <= 8:
+        return 5;
+        break;
+    default:
+        if (eggs % 8 === 0) {
+        	return eggs / 8 * 5
+        } else {
+        	return Math.floor(eggs / 8 + 1) * 5 
+        }
+}
 }
 
 // cook time for 0 eggs
