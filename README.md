@@ -1,2 +1,2 @@
 # codewars
-Steps in order to become a JavaScript ninja
+Challenges for job search
