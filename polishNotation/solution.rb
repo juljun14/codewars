@@ -9,7 +9,7 @@ def calc(expr)
 	until split_expr.empty?
 		answer << split_expr.slice!(0)
 		if OPERATIONS.include?(answer[-1])
-			operand = answer.slice!(-1)
+			operand = answer.pop
 			combine = answer.pop(2).map {|num| num.to_f}.reduce(operand)
 			answer << combine
 		end
