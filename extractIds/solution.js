@@ -1,56 +1,59 @@
-function extractIds(data){
+// function extractIds(data){
 
-}
+// }
 
 data = {
-  id: 1,
-  items: [
-    {id: 2},
-    {id: 3, items: [
-      {id: 4},
-      {id: 5}
-    ]}
-  ]
+    id: 1,
+    items: [{
+        id: 2,
+        items: [{
+              id: 3,
+              items: [
+                {id: 4},
+                {id: 5}
+              ]
+            },{
+              id: 6,
+              items: [{id: 7}]
+            }]
+      }]
 }
 
-var answer  = [];
-var check   = [];
-var counter = 0;
-var countinue = true;
+var answer = [];
+var adapt  = data;
 
-if (typeof data.id !== "undefined") {
-	answer.push(data.id);
-}
-if (typeof data.items !== "undefined") {
-	check = data.items;
-}
-
-while (countinue) {
-	for (var index in check) {
-		console.log("counter: " + counter)
-		console.log("index  : " + index)
-		console.log("answer : " + answer)
-		console.log(check)
-		console.log("GO with above statements")
-		if (typeof check[index].id !== "undefined") {
-			console.log("PUTTING " + check[index].id + " INTO ANSWER")
-			answer.push(check[index].id);
-			counter++;
-		}
-
-		if (typeof check[index].items !== "undefined") {
-			check = check[index].items;
-			console.log("NEW ITEM DETECTED")
-			counter = 0;
-		}
-
-		if (check.length === counter) {
-			console.log("STOOOOOOP")
-			countinue = false;
-		}
+function initialCheck() {
+	if (!!adapt.id) {
+		answer.push(adapt.id);
 	}
 }
 
-console.log(answer)
+function captureId() {
+	if (!!adapt.id) {
+		answer.push(adapt.id);
+		console.log("Pushing: " + adapt.id)
+	}
+}
 
-// console.log(extractIds(data)); // should return [1,2,3,4,5]
+function ItemChecker() {
+	if (!!adapt.items) {
+		LengthOfObjectTimesDo();
+	}
+}
+
+function LengthOfObjectTimesDo() {
+	var counter = adapt.items.length
+	for (i = 0; i < counter; i++) {
+		console.log("Before : " + adapt)
+		adapt = adapt.items[i]
+		console.log("Now   : " + adapt)
+		captureId();
+	}
+}
+
+initialCheck();
+console.log(adapt)
+ItemChecker();
+ItemChecker();
+console.log(adapt)
+console.log(answer)
