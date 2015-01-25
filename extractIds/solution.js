@@ -1,7 +1,3 @@
-// function extractIds(data){
-
-// }
-
 data = {
     id: 1,
     items: [{
@@ -20,40 +16,37 @@ data = {
 }
 
 var answer = [];
-var adapt  = data;
+var beforeKick;
 
-function initialCheck() {
-	if (!!adapt.id) {
-		answer.push(adapt.id);
-	}
+function initializer() {
+  if (!!data.id) {
+    answer.push(data.id)
+  }
+  if (!!data.items) {
+    data = data.items
+  }
 }
 
-function captureId() {
-	if (!!adapt.id) {
-		answer.push(adapt.id);
-		console.log("Pushing: " + adapt.id)
-	}
+function inception() {
+  for (var levels in data) {
+    if (!!data[levels].id) {
+      answer.push(data[levels].id);
+    }
+    if (!!data[levels].items && levels == 0) {
+      beforeKick = data;
+      data = data[levels].items;
+      inception();
+    } else if (!!beforeKick[levels].items && levels == 1) {
+      answer.push(beforeKick[levels].id)
+      data = beforeKick[levels].items;
+      inception();
+    } else {
+      break;
+    }
+  }
 }
 
-function ItemChecker() {
-	if (!!adapt.items) {
-		LengthOfObjectTimesDo();
-	}
-}
+initializer();
+inception();
 
-function LengthOfObjectTimesDo() {
-	var counter = adapt.items.length
-	for (i = 0; i < counter; i++) {
-		console.log("Before : " + adapt)
-		adapt = adapt.items[i]
-		console.log("Now   : " + adapt)
-		captureId();
-	}
-}
-
-initialCheck();
-console.log(adapt)
-ItemChecker();
-ItemChecker();
-console.log(adapt)
 console.log(answer)
