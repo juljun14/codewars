@@ -1,9 +1,5 @@
 def compare(a,b)
-	if (score(a) <=> score(b)) == 1
-		a
-	else
-		b
-	end
+	(score(a) <=> score(b)) == 1 ? a : b
 end
 
 def score(str)
