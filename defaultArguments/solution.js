@@ -1,16 +1,17 @@
 function defaultArguments(func, params) {
-  var reg = /\(([\s\S]*?)\)/;
-  var extractVar = reg.exec(func);
-  if (extractVar) {
-  	var arguments = extractVar[1].split(',');
-  }
+	var stringed = func.toString();
+	var inputs = stringed.match(/\(.+\)/)[0].replace("(", "").replace(")", "").split(",")
+	for (i = 0; i < inputs.length; i++) {
+			inputs[i] = ""+inputs[i]+" = "+inputs[i]+" || "+params[inputs[i]]+";"
+	}
+	for (i = 0; i < inputs.length; i ++) {
+		stringed = stringed.replace("{", "{ "+inputs[i]+"")
+	}
 
-  for (i = 0; i < arguments.length; i++) {
-  	if (params[arguments[i]]) {
-  		arguments[i] = params[arguments[i]];
-  	}
-  }
-  console.log(extractVar)
+	var newFunc = "var restoreFunc = " + stringed;
+	eval(newFunc);
+
+	return restoreFunc;
 }
 
 function add(a,b) { return a+b; };
